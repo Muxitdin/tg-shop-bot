@@ -1,0 +1,20 @@
+{
+  "name": "tg-shop-bot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "set NODE_ENV=production&& node index.js",
+    "dev": "set NODE_ENV=development&& nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@edjopato/telegraf-i18n": "^0.2.2",
+    "dotenv": "^16.4.7",
+    "express": "^5.1.0",
+    "mongoose": "^8.13.1",
+    "telegraf": "^4.16.3"
+  }
+}
