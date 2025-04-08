@@ -5,7 +5,8 @@ const userSchema = new mongoose.Schema(
         telegramId: { type: String, required: true, unique: true },
         name: String,
         phone: String,
-        language: { type: String, default: "ru" },
+        language: { type: String, default: 'uz', enum: ['ru', 'uz'] },
+        registeredAt: { type: Date, default: Date.now() },
     },
     { timestamps: true }
 );

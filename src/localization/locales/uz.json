@@ -1,0 +1,31 @@
+{
+    "buttons": {
+        "cart": "🛒 Savatcha",
+        "orders": "📦 Buyurtmalarim",
+        "settings": "⚙️ Sozlamalar",
+        "profile": "👤 Mening profilim",
+        "purchase": "🛍 Buyurtma qilish",
+        "back": "⬅️ Orqaga",
+        "save": "💾 Saqlash"
+    },
+    "messages": {
+        "registration": {
+            "enter_name": "Ismingizni kiriting:",
+            "enter_phone": "Telefon raqamingizni quyidagi tugma orqali yuboring:",
+            "share_phone": "📱 Telefon raqamni yuborish",
+            "invalid_phone": "❌ Xatolik! Iltimos, to'g'ri telefon raqamini yuboring.",
+            "success": "✅ Ro'yxatdan o'tish muvaffaqiyatli yakunlandi! Endi siz botdan foydalanishingiz mumkin.\n\nTilni o'zgartirish uchun <⚙️ Sozlamalar>ga o'ting."        
+        },
+        "welcome": "Botimizga xush kelibsiz!",
+        "choose_action": "Amalni tanlang:",
+        "language_changed": "Til o'zbekchaga o'zgartirildi",
+        "choose_language": "Tilni tanlang:",
+        "profile_info": "Profil ma'lumotlari:",
+        "cart_empty": "Savatingiz bo'sh",
+        "orders_empty": "Sizda buyurtmalar yo'q",
+        "profile": {
+            "message": "👤 Sizning profil:\n\nIsm: {{name}}\nTelefon: {{phone}}\nTil: {{language}}",
+            "not_registered": "❌ Siz ro'yxatdan o'tmagansiz!"
+        }
+    }
+}

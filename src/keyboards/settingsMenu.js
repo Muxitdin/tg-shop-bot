@@ -1,7 +1,7 @@
-const { Markup } = require("telegraf");
+const { Markup } = require('telegraf');
 
-const settingsMenu = Markup.keyboard([
-    ["🇷🇺 Русский", "🇺🇿 Oʻzbekcha"]
-]).resize();
+function getSettingsMenu(ctx) {
+    return Markup.keyboard([["🇷🇺 Русский", "🇺🇿 Oʻzbekcha"], [ctx.t("buttons.back")]]).resize();
+}
 
-module.exports = { settingsMenu };
+module.exports = { getSettingsMenu };

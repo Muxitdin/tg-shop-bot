@@ -1,29 +1,37 @@
-const { Scenes, Markup } = require("telegraf");
+const { Scenes } = require("telegraf");
 const User = require("../models/User");
-const { mainMenu } = require("../keyboards/mainMenu");
-const { settingsMenu } = require("../keyboards/settingsMenu");
+const { getMainMenu } = require("../keyboards/mainMenu");
+const { getSettingsMenu } = require("../keyboards/settingsMenu");
 
 const settingsScene = new Scenes.BaseScene("settingsScene");
 
 settingsScene.enter(async (ctx) => {
-    await ctx.reply("Выберите язык:", settingsMenu);
+    await ctx.reply(ctx.t("messages.choose_language"), getSettingsMenu(ctx));
 });
-settingsScene.on("text", async (ctx) => {
-    const text = ctx.message.text;
 
-    if (text === "🇷🇺 Русский") {
-        await User.updateOne({ telegramId: ctx.from.id }, { language: "ru" });
-        await ctx.reply("Язык изменен на русский.", Markup.removeKeyboard());
-    } else if (text === "🇺🇿 Oʻzbekcha") {
-        await User.updateOne({ telegramId: ctx.from.id }, { language: "uz" });
-        await ctx.reply("Til o‘zbek tiliga o‘zgartirildi.", Markup.removeKeyboard());
-    } else {
-        await ctx.reply("Пожалуйста, выберите язык с клавиатуры.");
-    }
+settingsScene.hears("🇷🇺 Русский", async (ctx) => {
+    await User.findOneAndUpdate({ telegramId: ctx.from.id }, { language: "ru" }, { upsert: true });
 
-    // Возвращаем главное меню после выбора языка
-    await ctx.reply("Выберите действие:", mainMenu);
-    return ctx.scene.leave();
+    // Update session language
+    ctx.i18n.setLocale("ru");
+
+    await ctx.reply(ctx.t("messages.language_changed"));
+    await ctx.reply(ctx.t("messages.choose_action"), getMainMenu(ctx));
+});
+
+settingsScene.hears("🇺🇿 Oʻzbekcha", async (ctx) => {
+    await User.findOneAndUpdate({ telegramId: ctx.from.id }, { language: "uz" }, { upsert: true });
+
+    // Update session language
+    ctx.i18n.setLocale("uz");
+
+    await ctx.reply(ctx.t("messages.language_changed"));
+    await ctx.reply(ctx.t("messages.choose_action"), getMainMenu(ctx));
+});
+
+settingsScene.hears(/⬅️ Назад|⬅️ Orqaga/, (ctx) => {
+    ctx.scene.leave();
+    ctx.reply(ctx.t("messages.choose_action"), getMainMenu(ctx));
 });
 
 module.exports = { settingsScene };

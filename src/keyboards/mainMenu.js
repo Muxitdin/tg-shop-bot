@@ -1,9 +1,11 @@
 const { Markup } = require("telegraf");
 
-const mainMenu = Markup.keyboard([
-    ["🛒 Корзина", "📦 Мои заказы"],
-    ["⚙️ Настройки", "👤 Мой профиль"],
-    ["🛍️ Создать заказ"],
-]).resize();
+function getMainMenu(ctx, language = "ru") {
+    return Markup.keyboard([
+        [ctx.t("buttons.cart"), ctx.t("buttons.orders")],
+        [ctx.t("buttons.settings"), ctx.t("buttons.profile")],
+        [ctx.t("buttons.purchase")],
+    ]).resize();
+}
 
-module.exports = { mainMenu };
+module.exports = { getMainMenu };

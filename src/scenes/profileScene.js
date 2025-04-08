@@ -1,16 +1,24 @@
 const { Scenes } = require("telegraf");
 const User = require("../models/User");
-const { mainMenu } = require('../keyboards/mainMenu');
+const { getMainMenu } = require("../keyboards/mainMenu");
 
 const profileScene = new Scenes.WizardScene("profileScene", async (ctx) => {
     const user = await User.findOne({ telegramId: ctx.from.id });
 
     if (!user) {
-        ctx.reply("❌ Ошибка! Вы не зарегистрированы.", mainMenu);
+        ctx.reply(ctx.t("messages.profile.not_registered"), getMainMenu(ctx));
         return ctx.scene.leave();
     }
 
-    await ctx.reply(`👤 Ваш профиль:\n\nИмя: ${user.name}\nТелефон: ${user.phone}\nЯзык: ${user.language}`, mainMenu);
+    const profileMessage = () => {
+        return ctx.t("messages.profile.message", {
+            name: user.name,
+            phone: user.phone,
+            language: user.language,
+        });
+    };
+
+    await ctx.reply(profileMessage(), getMainMenu(ctx));
     return ctx.scene.leave();
 });
 
