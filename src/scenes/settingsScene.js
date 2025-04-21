@@ -2,16 +2,22 @@ const { Scenes } = require("telegraf");
 const User = require("../models/User");
 const { getMainMenu } = require("../keyboards/mainMenu");
 const { getSettingsMenu } = require("../keyboards/settingsMenu");
+const deletePreviousMessage = require("../services/deletePreviousMessage");
 
 const settingsScene = new Scenes.BaseScene("settingsScene");
 
 settingsScene.enter(async (ctx) => {
+    await deletePreviousMessage(ctx)
     await ctx.reply(ctx.t("messages.choose_language"), getSettingsMenu(ctx));
 });
 
 settingsScene.hears("🇷🇺 Русский", async (ctx) => {
-    await User.findOneAndUpdate({ telegramId: ctx.from.id }, { language: "ru" }, { upsert: true });
-
+    const existingUser = await User.findOne({ telegramId: ctx.from.id });
+    if (existingUser) {
+        await User.findByIdAndUpdate(existingUser._id, { language: "ru" });
+    } else {
+        return ctx.reply(ctx.t("messages.registration.error"));
+    }
     // Update session language
     ctx.i18n.setLocale("ru");
 
@@ -20,7 +26,12 @@ settingsScene.hears("🇷🇺 Русский", async (ctx) => {
 });
 
 settingsScene.hears("🇺🇿 Oʻzbekcha", async (ctx) => {
-    await User.findOneAndUpdate({ telegramId: ctx.from.id }, { language: "uz" }, { upsert: true });
+    const existingUser = await User.findOne({ telegramId: ctx.from.id });
+    if (existingUser) {
+        await User.findByIdAndUpdate(existingUser._id, { language: "uz" });
+    } else {
+        return ctx.reply(ctx.t("messages.registration.error"));
+    }
 
     // Update session language
     ctx.i18n.setLocale("uz");

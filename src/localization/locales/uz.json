@@ -6,16 +6,14 @@
         "profile": "👤 Mening profilim",
         "purchase": "🛍 Buyurtma qilish",
         "back": "⬅️ Orqaga",
-        "save": "💾 Saqlash"
+        "save": "💾 Saqlash",
+
+        "back_to_menu": "\uD83C\uDFE0 Menyuga qaytish",
+        "back_to_categories": "↩️ Kategoriyalarga",
+        "back_to_products": "↩️ Mahsulotlarga",
+        "add_to_cart": "🛒 Savatchaga qo'shish"
     },
     "messages": {
-        "registration": {
-            "enter_name": "Ismingizni kiriting:",
-            "enter_phone": "Telefon raqamingizni quyidagi tugma orqali yuboring:",
-            "share_phone": "📱 Telefon raqamni yuborish",
-            "invalid_phone": "❌ Xatolik! Iltimos, to'g'ri telefon raqamini yuboring.",
-            "success": "✅ Ro'yxatdan o'tish muvaffaqiyatli yakunlandi! Endi siz botdan foydalanishingiz mumkin.\n\nTilni o'zgartirish uchun <⚙️ Sozlamalar>ga o'ting."        
-        },
         "welcome": "Botimizga xush kelibsiz!",
         "choose_action": "Amalni tanlang:",
         "language_changed": "Til o'zbekchaga o'zgartirildi",
@@ -23,9 +21,38 @@
         "profile_info": "Profil ma'lumotlari:",
         "cart_empty": "Savatingiz bo'sh",
         "orders_empty": "Sizda buyurtmalar yo'q",
+        "registration": {
+            "already_registered_welcome": "Xush kelibsiz!\n\nTilni o'zgartirish uchun <⚙️ Sozlamalar>ga o'ting.",
+            "enter_name": "Ismingizni kiriting:",
+            "enter_phone": "Telefon raqamingizni quyidagi tugma orqali yuboring:",
+            "share_phone": "📱 Telefon raqamni yuborish",
+            "invalid_phone": "❌ Xatolik! Iltimos, to'g'ri telefon raqamini yuboring.",
+            "success": "✅ Ro'yxatdan o'tish muvaffaqiyatli yakunlandi! Endi siz botdan foydalanishingiz mumkin.\n\nTilni o'zgartirish uchun <⚙️ Sozlamalar>ga o'ting.",
+            "error": "❌ Xatolik! Iltimos, qayta urinib ko'ring, /start ."
+        },
         "profile": {
             "message": "👤 Sizning profil:\n\nIsm: {{name}}\nTelefon: {{phone}}\nTil: {{language}}",
             "not_registered": "❌ Siz ro'yxatdan o'tmagansiz!"
+        },
+        "purchase": {
+            "purchase_scene_on": "Buyurtma qilishga o'tildi...",
+            "select_category": "Mahsulot kategoriyasini tanlang:",
+            "select_product": "Mahsulotni tanlang:",
+            "no_categories": "Mahsulot kategoriyalari topilmadi.",
+            "no_products_in_category": "Ushbu kategoriyada mahsulotlar yo'q.",
+            "product_not_found": "Mahsulot topilmadi.",
+            "added_to_cart": "Mahsulot savatchaga qo'shildi!",
+            "back_to_menu": "Asosiy menyuga qaytdik",
+            "page": "Sahifa",
+            "category": "Kategoriya",
+            "price": "Narx",
+            "description": "Tavsif",
+            "in_stock": "Mavjud",
+            "out_of_stock": "Mavjud emas"
         }
+    },
+    "errors": {
+        "add_to_cart_failed": "Mahsulotni savatchaga qo'shib bo'lmadi",
+        "not_enough_stock": "Omborda yetarli mahsulot yo'q"
     }
 }

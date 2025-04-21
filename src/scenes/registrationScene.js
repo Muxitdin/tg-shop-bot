@@ -1,10 +1,16 @@
 const { Scenes } = require("telegraf");
 const User = require("../models/User");
-const { getMainMenu } = require('../keyboards/mainMenu');
+const { getMainMenu } = require("../keyboards/mainMenu");
 
 const registrationScene = new Scenes.WizardScene(
     "registrationScene",
     async (ctx) => {
+        const foundUser = await User.findOne({ telegramId: ctx.from.id });
+        if (foundUser) {
+            await ctx.reply(ctx.t("messages.registration.already_registered_welcome"), getMainMenu(ctx));
+            ctx.session.name = foundUser.name;
+            return ctx.scene.leave();
+        }
         await ctx.reply(ctx.t("messages.registration.enter_name"));
         return ctx.wizard.next();
     },

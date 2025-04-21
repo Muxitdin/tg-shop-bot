@@ -5,14 +5,16 @@ const { settingsScene } = require("./scenes/settingsScene.js");
 const { profileScene } = require("./scenes/profileScene.js");
 const { cartScene } = require("./scenes/cartScene.js");
 const { orderScene } = require("./scenes/orderScene.js");
+const { purchaseScene } = require("./scenes/purchaseScene.js");
 const languageMiddleware = require("./middlewares/languageMiddleware.js");
-const checkIfPrivateChat = require('./middlewares/checkIfPrivateChat.js');
+const checkIfPrivateChat = require("./middlewares/checkIfPrivateChat.js");
+const checkUserExistsInDb = require("./middlewares/checkUserExistsInDb.js");
 require("dotenv").config();
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
 // Создаём менеджер сцен
-const stage = new Scenes.Stage([registrationScene, settingsScene, profileScene, cartScene, orderScene]);
+const stage = new Scenes.Stage([registrationScene, settingsScene, profileScene, cartScene, orderScene, purchaseScene]);
 
 // Middlewares
 stage.use(languageMiddleware); // this will allow language middleware be available inside the scenes
@@ -20,6 +22,7 @@ bot.use(checkIfPrivateChat);
 bot.use(session());
 bot.use(stage.middleware());
 bot.use(languageMiddleware);
+bot.use(checkUserExistsInDb);
 
 // Стартовая команда
 bot.start(async (ctx) => {
@@ -36,6 +39,7 @@ bot.hears([/⚙️ Настройки/i, /⚙️ Sozlamalar/i], (ctx) => ctx.sce
 bot.hears([/👤 Мой профиль/i, /👤 Mening profilim/i], (ctx) => ctx.scene.enter("profileScene"));
 bot.hears([/🛒 Корзина/i, /🛒 Savatcha/i], (ctx) => ctx.scene.enter("cartScene"));
 bot.hears([/📦 Мои заказы/i, /📦 Buyurtmalarim/i], (ctx) => ctx.scene.enter("orderScene"));
+bot.hears([/🛍 Совершить покупку/i, /🛍 Buyurtma qilish/i], (ctx) => ctx.scene.enter("purchaseScene"));
 
 // Перехват неизвестных команд и отображение меню
 bot.on("message", async (ctx) => {

@@ -1,9 +1,11 @@
 const { Scenes } = require("telegraf");
 const Order = require("../models/Order");
 const { getMainMenu } = require("../keyboards/mainMenu");
+const deletePreviousMessage = require("../services/deletePreviousMessage");
 
 const orderScene = new Scenes.WizardScene("orderScene", async (ctx) => {
     const orders = await Order.find({ userId: ctx.from.id });
+    await deletePreviousMessage(ctx);
 
     if (orders.length === 0) {
         ctx.reply(ctx.t("messages.orders_empty"), getMainMenu(ctx));

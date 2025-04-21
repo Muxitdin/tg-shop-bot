@@ -1,9 +1,11 @@
 const { Scenes } = require("telegraf");
 const User = require("../models/User");
 const { getMainMenu } = require("../keyboards/mainMenu");
+const deletePreviousMessage = require("../services/deletePreviousMessage");
 
 const profileScene = new Scenes.WizardScene("profileScene", async (ctx) => {
     const user = await User.findOne({ telegramId: ctx.from.id });
+    await deletePreviousMessage(ctx);
 
     if (!user) {
         ctx.reply(ctx.t("messages.profile.not_registered"), getMainMenu(ctx));
@@ -18,7 +20,8 @@ const profileScene = new Scenes.WizardScene("profileScene", async (ctx) => {
         });
     };
 
-    await ctx.reply(profileMessage(), getMainMenu(ctx));
+    const sentMessage = await ctx.reply(profileMessage(), getMainMenu(ctx));
+    ctx.session.lastMessageId = sentMessage.message_id;
     return ctx.scene.leave();
 });
 

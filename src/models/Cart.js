@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const cartSchema = new mongoose.Schema(
     {
+        owner: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
         userId: { type: String, required: true },
         items: [
             {
